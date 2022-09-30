@@ -66,7 +66,8 @@ with DAG(
     # [START transform_function]
     def transform(**kwargs):
         ti = kwargs['ti']
-        extract_data_string = ti.xcom_pull(task_ids='extract', key='order_data')
+        extract_data_string = ti.xcom_pull(
+            task_ids='extract', key='order_data')
         order_data = json.loads(extract_data_string)
 
         total_order_value = 0
@@ -82,7 +83,8 @@ with DAG(
     # [START load_function]
     def load(**kwargs):
         ti = kwargs['ti']
-        total_value_string = ti.xcom_pull(task_ids='transform', key='total_order_value')
+        total_value_string = ti.xcom_pull(
+            task_ids='transform', key='total_order_value')
         total_order_value = json.loads(total_value_string)
 
         print(total_order_value)
